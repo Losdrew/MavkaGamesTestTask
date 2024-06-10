@@ -7,6 +7,7 @@
 #include "Task4Character.generated.h"
 
 class UObjectForReplication;
+class UComponentForReplication;
 
 UCLASS()
 class TESTTASK_2024_API ATask4Character : public ACharacter
@@ -17,6 +18,9 @@ public:
 
 	ATask4Character();
 
+	UFUNCTION(BlueprintCallable)
+	void CreateDynamicComponent();
+
 protected:
 
 	virtual void BeginPlay() override;
@@ -25,8 +29,19 @@ protected:
 	UFUNCTION()
 	void OnRep_ObjectForReplication();
 
+	UFUNCTION()
+	void OnRep_DynamicComponentForReplication();
+
 protected:
 
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_ObjectForReplication)
 	TObjectPtr<UObjectForReplication> ObjectForReplication;
+
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_DynamicComponentForReplication)
+	TObjectPtr<UComponentForReplication> DynamicComponentForReplication;
+
+private:
+
+	UPROPERTY(EditDefaultsOnly)
+	TObjectPtr<USkeletalMesh> SkeletalMesh;
 };
