@@ -20,18 +20,6 @@ void ATask4Character::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutL
 	DOREPLIFETIME(ThisClass, ObjectForReplication);
 }
 
-bool ATask4Character::ReplicateSubobjects(UActorChannel* Channel, FOutBunch* Bunch, FReplicationFlags* RepFlags)
-{
-	bool bWroteSomething = Super::ReplicateSubobjects(Channel, Bunch, RepFlags);
-         
-	if (IsValid(ObjectForReplication))
-	{
-		bWroteSomething |= Channel->ReplicateSubobject(ObjectForReplication, *Bunch, *RepFlags);
-	}
-			
-    return bWroteSomething;
-}
-
 void ATask4Character::BeginPlay()
 {
 	Super::BeginPlay();
